@@ -1,5 +1,10 @@
 # 54% · 行为测量（现场 + 报告）
 
+![分析总结](docs/summary.png)
+
+<sub>同一段 60 秒采集：六种口径给出 **17.3% – 99.1%** 的结论区间，横跨四种互斥判定
+（倾向于未隐瞒 / 无法判断 / 轻微提示存在隐瞒 / 高度提示存在隐瞒）。它们读的是<strong>完全相同</strong>的事件序列。</sub>
+
 作品的完整形态有两段：
 
 | 段落 | 载体 | 作用 |
@@ -35,6 +40,8 @@ python -m http.server 5174
 
 必须走 HTTP（`file://` 下 ES Module 会被拦），摄像头也要求 localhost 或 https。
 
+![采集界面](docs/monitor.png)
+
 界面是五面板布局：
 
 | 面板 | 内容 |
@@ -65,6 +72,8 @@ python -m http.server 5174
 
 六个数字排成一行是本作品的核心：**同一段事件序列，最高 98.9%「高度提示存在隐瞒」、最低 40.9%「倾向于未隐瞒」，
 中间还夹着「无法判断」**。差别只在于用哪套假设加权、取全程平均还是动作峰值。
+
+![导出的报告](docs/report.png)
 
 三种导出：
 
@@ -226,6 +235,17 @@ face-54/
 否则不同权重的尺度会让某些方案天生就停在 10% 或 90%。
 
 ---
+
+## 依赖与许可
+
+本仓库代码以 [MIT](LICENSE) 发布。
+
+`models/face_landmarker.task` 来自 Google [MediaPipe](https://github.com/google-ai-edge/mediapipe)
+的预训练模型，遵循 Apache License 2.0；它随仓库一起分发，是为了让 clone 下来即可离线运行
+（官方模型托管在 Google 存储桶，部分地区访问不到）。
+
+前端依赖通过 CDN 加载，不随仓库分发：
+`@mediapipe/tasks-vision`（Apache 2.0）。
 
 ## 方法参考
 

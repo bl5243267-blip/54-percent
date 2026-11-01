@@ -947,6 +947,12 @@ if (DEV.has('still')) {
   st.textContent = '*,*::before,*::after{transition:none!important;animation:none!important}';
   document.head.appendChild(st);
 }
+// 截图辅助：解除面板高度上限，让总结面板一次完整呈现在单张图里
+if (DEV.has('tall')) {
+  const st = document.createElement('style');
+  st.textContent = '.sum-inner{max-height:none!important}.sum-body{overflow:visible!important}';
+  document.head.appendChild(st);
+}
 if (DEV.has('demo')) {
   startDemo();
   if (DEV.has('explain')) setTimeout(() => { buildModal(); modal.classList.add('open'); }, 800);
