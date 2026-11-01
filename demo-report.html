@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>行为测量报告 · 演示数据（合成）</title>
+<style>
+:root{--bg:#0a0c10;--panel:#11141b;--panel2:#161a23;--line:#232936;
+--ink:#d9dee8;--dim:#8a93a6;--faint:#5b6376;--green:#4ade80;--amber:#fbbf24;--red:#f87171;--blue:#60a5fa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:14px/1.7 ui-monospace,"SF Mono",Menlo,"Cascadia Mono",Consolas,"PingFang SC","Microsoft YaHei",monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 28px 96px}
+h1{font-size:19px;font-weight:600;letter-spacing:.04em;margin:0 0 6px}
+.sub{color:var(--faint);font-size:12px;letter-spacing:.08em;margin:0 0 36px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px 24px;margin-bottom:18px}
+.lbl{font-size:11px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;margin:0 0 14px}
+.big{font-size:64px;font-weight:600;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.big small{font-size:20px;color:var(--dim);margin-left:4px}
+.verdict{margin-top:10px;font-size:13px;color:var(--amber)}
+.bar{position:relative;height:34px;background:var(--panel2);border-radius:6px;overflow:hidden;margin:9px 0}
+.bar i{position:absolute;inset:0 auto 0 0;display:block;border-radius:6px}
+.bar span{position:absolute;right:12px;top:50%;transform:translateY(-50%);
+font-size:12px;font-variant-numeric:tabular-nums;color:#0a0c10;font-weight:700;mix-blend-mode:normal}
+.scheme{margin-bottom:16px}
+.scheme .nm{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:2px}
+.scheme .nm b{font-weight:600}
+.scheme .pm{font-size:11.5px;color:var(--faint);margin:0}
+.spread{font-size:12.5px;color:var(--amber);margin:16px 0 0;padding-top:14px;border-top:1px dashed var(--line)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;color:var(--faint);font-weight:400;font-size:11px;letter-spacing:.12em;
+padding:0 10px 8px 0;border-bottom:1px solid var(--line)}
+td{padding:8px 10px 8px 0;border-bottom:1px solid rgba(35,41,54,.5);vertical-align:top}
+td.n{text-align:right;font-variant-numeric:tabular-nums;color:var(--dim)}
+.ctx{border-left:2px solid var(--line);padding:0 0 0 18px;margin-bottom:22px}
+.ctx .q{font-size:13.5px;color:var(--ink);margin-bottom:4px}
+.ctx .t{font-size:11px;color:var(--faint);letter-spacing:.06em}
+.tag{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:4px;margin:5px 5px 0 0;
+background:rgba(96,165,250,.12);color:#93c5fd;border:1px solid rgba(96,165,250,.25)}
+.alt{font-size:11.5px;color:var(--faint);margin:7px 0 0}
+.alt b{color:var(--dim);font-weight:400}
+.warn{border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.05)}
+.warn h2{color:var(--red)}
+h2{font-size:14px;font-weight:600;margin:0 0 12px;letter-spacing:.03em}
+ul{margin:0;padding-left:18px}li{margin-bottom:6px;font-size:12.5px;color:var(--dim)}
+code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-size:12px;color:var(--blue)}
+.foot{color:var(--faint);font-size:11.5px;line-height:1.9;margin-top:28px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}.big{font-size:48px}}
+</style></head>
+<body><div class="wrap">
+
+<h1>行为测量报告</h1>
+<p class="sub">演示数据（合成） ｜ 生成于 2026-10-31 18:30</p>
+
+<div class="card">
+  <p class="lbl">观测结论 · 方案 A · 常见说法</p>
+  <div class="big" style="color:#fbbf24">64<small>%</small></div>
+  <p class="verdict">轻微提示存在隐瞒</p>
+</div>
+
+<div class="card">
+  <p class="lbl">同一份测量 · 四套方案</p>
+  
+        <div class="scheme">
+          <div class="nm"><b>方案 A · 常见说法</b>
+            <span style="color:#fbbf24;font-variant-numeric:tabular-nums;font-weight:600">
+              64.0% · 轻微提示存在隐瞒</span></div>
+          <div class="bar"><i style="width:64.0%;background:#fbbf24"></i></div>
+          <p class="pm">压抑情绪会在脸上泄漏：皱眉、唇收紧、视线躲闪 = 在隐瞒</p>
+        </div>
+        <div class="scheme">
+          <div class="nm"><b>方案 B · 同样合理</b>
+            <span style="color:#4ade80;font-variant-numeric:tabular-nums;font-weight:600">
+              43.7% · 倾向于未隐瞒</span></div>
+          <div class="bar"><i style="width:43.7%;background:#4ade80"></i></div>
+          <p class="pm">紧张的人会刻意控制表情：反而更少小动作、更用力维持微笑</p>
+        </div>
+        <div class="scheme">
+          <div class="nm"><b>方案 C · 只看声音</b>
+            <span style="color:#f87171;font-variant-numeric:tabular-nums;font-weight:600">
+              68.2% · 高度提示存在隐瞒</span></div>
+          <div class="bar"><i style="width:68.2%;background:#f87171"></i></div>
+          <p class="pm">面部可以控制，声音难控制：停顿与语速才是真信号</p>
+        </div>
+        <div class="scheme">
+          <div class="nm"><b>方案 D · 随机权重</b>
+            <span style="color:#8a93a6;font-variant-numeric:tabular-nums;font-weight:600">
+              50.4% · 无法判断</span></div>
+          <div class="bar"><i style="width:50.4%;background:#8a93a6"></i></div>
+          <p class="pm">没人规定该用哪些特征、该怎么加权</p>
+        </div>
+  <p class="spread">跨度 43.7% – 68.2%（相差 24.5 个百分点）：
+  没有人规定该用哪些特征、该怎么加权。这个数字不描述「他有没有说谎」，
+  只描述「论文作者选了哪套参数」。</p>
+</div>
+
+<div class="card">
+  <p class="lbl">测量到的动作（仅测量，不含解释）</p>
+  <table>
+    <tr><th>动作单元 / 指标</th><th style="text-align:right">时间占比</th>
+        <th style="text-align:right">可替代解释</th></tr>
+    <tr><td>语速偏慢</td><td class='n'>40%</td><td class='n'>4</td></tr><tr><td>负面情绪</td><td class='n'>18%</td><td class='n'>3</td></tr><tr><td>眉下降 AU04</td><td class='n'>14%</td><td class='n'>5</td></tr><tr><td>摇头 / 歪头</td><td class='n'>12%</td><td class='n'>4</td></tr><tr><td>语音停顿</td><td class='n'>12%</td><td class='n'>4</td></tr><tr><td>嘴角下压 AU15</td><td class='n'>9%</td><td class='n'>3</td></tr><tr><td>眉上抬 AU01/AU02</td><td class='n'>6%</td><td class='n'>-</td></tr><tr><td>嘴角上扬 AU12</td><td class='n'>5%</td><td class='n'>-</td></tr><tr><td>唇收紧 AU23</td><td class='n'>4%</td><td class='n'>4</td></tr><tr><td>眨眼 AU45</td><td class='n'>2%</td><td class='n'>4</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <p class="lbl">逐句对照 · 每条线索都挂着替代解释</p>
+  
+        <div class="ctx">
+          <div class="t">00:00.600 – 00:04.200</div>
+          <div class="q">这个……让我想想。</div>
+          <div><span class='tag'>眉下降 · 42%</span><span class='tag'>唇收紧 · 35%</span><span class='tag'>语速 · 28%</span></div>
+          
+        </div>
+        <div class="ctx">
+          <div class="t">00:05.100 – 00:09.600</div>
+          <div class="q">那天下午我好像是在公司。</div>
+          <div><span class='tag'>停顿 · 72%</span><span class='tag'>neutral · 62%</span><span class='tag'>摇头 · 45%</span><span class='tag'>眉下降 · 42%</span><span class='tag'>唇收紧 · 35%</span><span class='tag'>眉下降 · 30%</span></div>
+          
+        </div>
+        <div class="ctx">
+          <div class="t">00:11.200 – 00:16.000</div>
+          <div class="q">具体几点我记不太清了。</div>
+          <div><span class='tag'>停顿 · 72%</span><span class='tag'>neutral · 62%</span><span class='tag'>摇头 · 45%</span><span class='tag'>眉下降 · 38%</span><span class='tag'>内眉上抬 · 36%</span><span class='tag'>眉下降 · 30%</span></div>
+          
+        </div>
+        <div class="ctx">
+          <div class="t">00:18.100 – 00:23.400</div>
+          <div class="q">应该是三点多吧，我在开会。</div>
+          <div><span class='tag'>停顿 · 81%</span><span class='tag'>neutral · 62%</span><span class='tag'>眨眼 · 55%</span><span class='tag'>sad · 48%</span><span class='tag'>唇收紧 · 41%</span><span class='tag'>眉下降 · 38%</span></div>
+          
+        </div>
+        <div class="ctx">
+          <div class="t">00:25.000 – 00:30.200</div>
+          <div class="q">跟谁开会……嗯，记不得了。</div>
+          <div><span class='tag'>停顿 · 81%</span><span class='tag'>neutral · 58%</span><span class='tag'>眨眼 · 55%</span><span class='tag'>sad · 48%</span><span class='tag'>唇收紧 · 41%</span><span class='tag'>歪头 · 38%</span></div>
+          
+        </div>
+        <div class="ctx">
+          <div class="t">00:32.400 – 00:37.800</div>
+          <div class="q">就是很普通的一个下午。</div>
+          <div><span class='tag'>停顿 · 66%</span><span class='tag'>neutral · 58%</span><span class='tag'>angry · 52%</span><span class='tag'>摇头 · 52%</span><span class='tag'>sad · 48%</span><span class='tag'>内眉上抬 · 48%</span></div>
+          
+        </div>
+        <div class="ctx">
+          <div class="t">00:39.500 – 00:45.000</div>
+          <div class="q">你为什么问这个？</div>
+          <div><span class='tag'>停顿 · 66%</span><span class='tag'>neutral · 58%</span><span class='tag'>angry · 52%</span><span class='tag'>摇头 · 52%</span><span class='tag'>语速 · 52%</span><span class='tag'>内眉上抬 · 48%</span></div>
+          
+        </div>
+        <div class="ctx">
+          <div class="t">00:47.200 – 00:53.000</div>
+          <div class="q">我说的都是实话。</div>
+          <div><span class='tag'>angry · 52%</span><span class='tag'>语速 · 52%</span><span class='tag'>嘴角上扬 · 30%</span><span class='tag'>嘴角下压 · 26%</span></div>
+          
+        </div>
+        <div class="ctx">
+          <div class="t">00:55.000 – 01:00.500</div>
+          <div class="q">你们要是不信可以去问他们。</div>
+          <div><span class='tag'>语速 · 52%</span><span class='tag'>嘴角下压 · 26%</span></div>
+          
+        </div>
+</div>
+
+<div class="card warn">
+  <h2>本报告不能得出「是否说谎」的结论</h2>
+  <ul>
+    <li>「面部动作 → 欺骗意图」之间的映射未被任何研究证实。荟萃分析显示，
+        人类判断谎言的准确率约 <b>54%</b>，与随机猜测（50%）无实质差异。</li>
+    <li>上面每条线索都至少有 4–5 种同样合理的解释，报告无法在它们之间做选择。</li>
+    <li>当事人若知道自己正被分析，表现会系统性改变，整份测量随之失效。</li>
+    <li>可核实的只有事实：文件、记录、第三方证词、时间线。行为测量不是证据。</li>
+  </ul>
+</div>
+
+<div class="card">
+  <p class="lbl">必须并列的替代解释</p>
+  <div class="grid2"><ul><li>紧张（被观察本身就会引发）</li><li>文化差异（眼神接触、表情抑制的规范不同）</li><li>疲劳、睡眠不足、咖啡因</li><li>性格基线（本就不爱做表情）</li></ul><ul><li>语言障碍或非母语表达</li><li>第三方在场带来的压力</li><li>知道自己正被行为分析——这会系统性改变表现</li></ul></div>
+  <p style="font-size:11.5px;color:#5b6376;margin:10px 0 0">
+  以上任何一条单独成立，都足以让上表的全部线索失去意义。</p>
+</div>
+
+<div class="card">
+  <p class="lbl">技术附录</p>
+  <p style="font-size:12px;color:#8a93a6;margin:0 0 12px">视频起点 0.000s ｜ 音频起点 0.000s ｜ 音频偏移 +0.000s ｜ 30.00 fps ｜ 时长 62.0s</p>
+  <table><tr><th>分析器</th><th>状态</th><th>说明</th></tr><tr><td>openface</td><td style='color:#fbbf24'>skipped</td><td style='color:#8a93a6'>演示模式：使用合成数据</td></tr><tr><td>deepface</td><td style='color:#fbbf24'>skipped</td><td style='color:#8a93a6'>演示模式：使用合成数据</td></tr><tr><td>whisper</td><td style='color:#fbbf24'>skipped</td><td style='color:#8a93a6'>演示模式：使用合成数据</td></tr><tr><td>mediapipe</td><td style='color:#fbbf24'>skipped</td><td style='color:#8a93a6'>演示模式：使用合成数据</td></tr></table>
+</div>
+
+<p class="foot">
+方法参考：DePaulo et al. (2003) 荟萃分析，158 项研究；Bond &amp; DePaulo (2006)；
+美国国家科学院 (2003)《Polygraph and Lie Detection》。
+本报告为测量与可视化练习，不构成对任何个人的判断。
+</p>
+</div></body></html>

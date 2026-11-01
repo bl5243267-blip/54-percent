@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8" /><title>facecheck</title></head>
+<body>
+<h3>FaceLandmarker 链路自检</h3>
+<pre id="out">running…</pre>
+<script type="module">
+const out = document.getElementById('out');
+const log = [];
+const put = (s) => { log.push(s); out.textContent = log.join('\n'); document.title = s; };
+
+const SRC = {
+  lib: 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs',
+  wasm: 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm',
+};
+
+const MODELS = [
+  new URL('models/face_landmarker.task', document.baseURI).href,
+  new URL('models/face_landmarker.json', document.baseURI).href,
+];
+
+const OPTS = [
+  { name: 'blendshapes+matrix', extra: { outputFaceBlendshapes: true, outputFacialTransformationMatrixes: true } },
+  { name: 'blendshapes only', extra: { outputFaceBlendshapes: true } },
+  { name: 'no outputs', extra: {} },
+];
+
+(async () => {
+  put('location: ' + location.href);
+
+  // 1) 模型可达性
+  for (const m of MODELS) {
+    try {
+      const r = await fetch(m, { method: 'HEAD' });
+      put(`fetch ${r.status} ${r.headers.get('content-length') || '?'}B  ${m}`);
+    } catch (e) {
+      put(`fetch FAIL ${e.message}  ${m}`);
+    }
+  }
+
+  // 2) 库
+  let mod;
+  try {
+    mod = await import(SRC.lib);
+    put('STEP lib ok ' + (typeof mod.FaceLandmarker));
+  } catch (e) {
+    put('FAIL lib :: ' + e.message); return;
+  }
+
+  // 3) wasm
+  let fileset;
+  try {
+    fileset = await mod.FilesetResolver.forVisionTasks(SRC.wasm);
+    put('STEP fileset ok');
+  } catch (e) {
+    put('FAIL fileset :: ' + (e.message || e)); return;
+  }
+
+  // 4) 模型 × 参数 × delegate
+  for (const m of MODELS) {
+    for (const opt of OPTS) {
+      for (const delegate of ['GPU', 'CPU']) {
+        try {
+          const lm = await mod.FaceLandmarker.createFromOptions(fileset, {
+            baseOptions: { modelAssetPath: m, delegate },
+            runningMode: 'VIDEO',
+            numFaces: 1,
+            ...opt.extra,
+          });
+          put(`RESULT OK [${opt.name}] [${delegate}] ${m.split('/').pop()}`);
+          try {
+            const c = document.createElement('canvas');
+            c.width = 320; c.height = 240;
+            c.getContext('2d').fillRect(0, 0, 320, 240);
+            const r = lm.detectForVideo(c, performance.now());
+            put('STEP detect ok faces=' + (r?.faceLandmarks?.length ?? 'null')
+              + ' shapes=' + (r?.faceBlendshapes?.[0]?.categories?.length ?? 'null'));
+          } catch (e) {
+            put('detect fail :: ' + (e.message || e));
+          }
+          return;
+        } catch (e) {
+          put(`x [${opt.name}] [${delegate}] ${(e && (e.message || e.toString()) || '').slice(0, 140)}`);
+        }
+      }
+    }
+  }
+  put('RESULT FAIL all combos');
+})();
+</script>
+</body>
+</html>

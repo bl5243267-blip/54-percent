@@ -1,0 +1,18 @@
+# 核心依赖（demo 模式只需要这个）
+numpy>=1.24
+
+# ---- 以下为可选分析器，按需安装，装不上不影响其他通道 ----
+
+# 语音转写（推荐，比 openai-whisper 快约 4 倍，带词级时间戳）
+faster-whisper>=1.0.0
+
+# 抽帧（DeepFace 与 MediaPipe 都需要）
+opencv-python>=4.8.0
+
+# 姿态 / 手势（注意：对 Python 3.13 的 wheel 支持不完整，建议 3.10-3.12）
+mediapipe>=0.10.9
+
+# 表情识别（依赖 tensorflow，体积较大，约 500MB+）
+# deepface>=0.0.93
+
+# OpenFace 不在 PyPI：需单独下载预编译版，并用环境变量 OPENFACE_BIN 指向可执行文件

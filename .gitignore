@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# 管线生成的中间产物
+demo-report.json
+*.jsonl
+out/
+reports/
+
+# 预览面板代理用的重复模型：与 face_landmarker.task 内容完全一致（同一份二进制改名），
+# 仅用于绕过本地预览代理的扩展名白名单，仓库里不需要第二份 3.7MB
+models/face_landmarker.json
+
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp

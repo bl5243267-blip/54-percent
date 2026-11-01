@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0d1117" />
+<title>54% · 面部行为分析</title>
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <header class="toolbar">
+    <div class="brand">
+      <b>54%</b>
+      <span>FACIAL ACTION ANALYSIS</span>
+    </div>
+
+    <div class="tools">
+      <button id="btnStart" class="tbtn primary" type="button">开始采集</button>
+      <button id="btnDemo" class="tbtn" type="button">演示数据</button>
+      <button id="btnFile" class="tbtn" type="button">分析视频</button>
+      <button id="btnStop" class="tbtn" type="button" disabled>停止</button>
+      <button id="btnSummary" class="tbtn" type="button" disabled>生成总结</button>
+      <button id="btnReset" class="tbtn" type="button" disabled>清空</button>
+      <input type="file" id="fileInput" accept="video/*" hidden />
+    </div>
+
+    <div class="conn" id="conn"><i></i><span id="connText">未连接</span></div>
+  </header>
+
+  <main class="grid">
+
+    <section class="panel preview" id="previewPanel">
+      <div class="phead">
+        <span>实时画面</span>
+        <span class="meta" id="previewMeta">478 点 · 52 AU</span>
+      </div>
+      <div class="pbody">
+        <video id="cam" playsinline autoplay muted></video>
+        <canvas id="scan"></canvas>
+        <div class="phint" id="phint">摄像头未开启</div>
+        <div class="progress" id="progress" hidden>
+          <div class="pbar"><i id="pbarFill"></i></div>
+          <span id="pbarText">分析中 0%</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel wave">
+      <div class="phead">
+        <span>动作单元活动</span>
+        <span class="meta">最近 20 秒</span>
+      </div>
+      <div class="pbody">
+        <canvas id="chart"></canvas>
+        <div class="legend" id="legend"></div>
+      </div>
+    </section>
+
+    <section class="panel values">
+      <div class="phead">
+        <span>通道数值</span>
+        <span class="meta" id="valMeta">0 / 8 活跃</span>
+      </div>
+      <div class="pbody">
+        <table class="dtable" id="valTable"></table>
+      </div>
+    </section>
+
+    <section class="panel events">
+      <div class="phead">
+        <span>事件日志</span>
+        <span class="meta" id="evMeta">0 条</span>
+      </div>
+      <div class="pbody">
+        <table class="dtable" id="evTable">
+          <thead><tr><th>时间</th><th>动作</th><th>强度</th><th>时长</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty" id="evEmpty">暂无事件</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="index-block">
+      <div class="idx-label">行为指标</div>
+      <div class="idx-value" id="idxValue">--.-</div>
+      <div class="idx-verdict" id="idxVerdict">未采集</div>
+    </div>
+
+    <div class="schemes" id="schemes"></div>
+
+    <div class="disclaimer">
+      <span>仅供测量与可视化练习。<strong>本工具不给出真伪判断</strong>：面部动作与欺骗之间没有可靠的映射（人类判断准确率约 54%）。</span>
+      <button class="link" id="btnWhy" type="button">查看依据</button>
+    </div>
+  </footer>
+
+</div>
+
+<section class="modal" id="modal">
+  <div class="modal-inner">
+    <header>
+      <h2>为什么这里只显示「指标」而不给结论</h2>
+      <button id="btnClose" type="button" aria-label="关闭">×</button>
+    </header>
+
+    <div class="mbody">
+      <p>
+        下方的三个方案读的是<strong>完全相同</strong>的数据。它们都基于真实文献中出现过的假设，
+        而且都站得住脚。注意结论差多少。
+      </p>
+      <div id="mCards" class="mcards"></div>
+
+      <h3>实测事件与替代解释</h3>
+      <div id="mEvents" class="mevents"></div>
+
+      <h3>三条硬约束</h3>
+      <ul>
+        <li>「面部动作 → 欺骗意图」之间的映射从未被证实。荟萃分析显示，人判断谎言的准确率约
+          <strong>54%</strong>，与抛硬币（50%）无实质差异。</li>
+        <li>每个动作都至少有 4–5 种同样合理的解释：紧张、疲劳、文化差异、性格、
+          被镜头注视的自我意识。本工具无法在它们之间做选择。</li>
+        <li>你此刻<strong>知道自己在被测量</strong>——这个事实本身就会改变你的表情。
+          换言之，这套系统测到的可能只是它对自身存在的影响。</li>
+      </ul>
+
+      <p class="ref">
+        DePaulo et al. (2003)，158 项研究荟萃分析 ｜ Bond &amp; DePaulo (2006) ｜
+        美国国家科学院 (2003)《Polygraph and Lie Detection》
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<section class="summary" id="summary">
+  <div class="sum-inner">
+    <header>
+      <div class="sum-h">
+        <h2>分析总结</h2>
+        <p id="sumScope">—</p>
+      </div>
+      <button id="sumClose" type="button" aria-label="关闭">×</button>
+    </header>
+
+    <div class="sum-body">
+      <div class="sum-kpis" id="sumKpis"></div>
+
+      <h3>事件时间轴</h3>
+      <div class="sum-tl" id="sumTimeline"></div>
+
+      <h3>同一段数据 · 六种口径</h3>
+      <div class="sum-cells" id="sumCells"></div>
+      <div class="sum-spread" id="sumSpread"></div>
+
+      <h3>动作分布</h3>
+      <table class="dtable sum-table" id="sumStats">
+        <thead>
+          <tr>
+            <th>动作</th><th class="num">次数</th><th class="num">次/分</th>
+            <th class="num">均强度</th><th class="num">均时长</th><th class="num">微表情</th><th>占比</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h3>主要动作的替代解释</h3>
+      <ul class="sum-alts" id="sumAlts"></ul>
+
+      <p class="sum-note">
+        这份总结是<strong>测量记录</strong>，不是真伪判定。六格读的是完全相同的事件序列，
+        差别只在于用哪套假设加权、取平均还是峰值。<strong>任何一格都不构成判断依据。</strong>
+      </p>
+    </div>
+
+    <footer class="sum-foot">
+      <button id="sumReport" class="tbtn primary" type="button">保存 HTML 报告</button>
+      <button id="sumPng" class="tbtn" type="button">保存时间轴 PNG</button>
+      <button id="sumCsv" class="tbtn" type="button">导出事件 CSV</button>
+      <span class="sum-foot-hint">报告为自包含文件，可直接发送或打印</span>
+    </footer>
+  </div>
+</section>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
